@@ -1,0 +1,71 @@
+#pageTitle {
+	font-size:5em;
+	text-align:center;
+	margin-top:0;
+}
+
+body {
+	height:500px;
+	background-color:#C9E8F5;
+}
+
+.page-header {
+	margin-top:0;
+	background-color:#458BA8;
+	padding-top:5px;
+	border-color:#234959;
+	border-width:3px;
+}
+
+.choiceButton {
+	display:block;
+	width:17%;
+	float:left;
+	border-width:3px;
+	margin:0 10px 0 10px;
+}
+
+#choices {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	width:70%;
+	height:100px;
+}
+
+h1 {
+	text-align:center;
+	font-size:3em;
+}
+
+h3 {
+	font-size:2em;
+	font-weight:5;
+	margin:0;
+}
+
+#userInput {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:20%;
+	height:100px;
+	font-size:5em;
+	text-align:center;
+}
+
+#submitButton {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+}
+
+#restartButton {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	clear:both;
+}

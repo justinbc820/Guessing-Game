@@ -1,44 +1,46 @@
-<!DOCTYPE HTML>
-<head>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
-
+<!DOCTYPE html>
 <html>
+	<head>
+		<title>Guessing Game</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/Guessing-Game.css">
+	</head>
+
 	<body>
-		<div>
-			<p>The Guessing Game</p>
+		<div class="page-header">
+			<h1 id="pageTitle">The Guessing Game</h1>
 		</div>
 
-		<div>
-			<div><p>Guess 1</p></div>
-			<div><p>Guess 2</p></div>
-			<div><p>Guess 3</p></div>
-			<div><p>Guess 4</p></div>
-			<div><p>Guess 5</p></div>
+		<h1>Guess a number between 1 - 100!</h1>
+
+		<input type="text" id="userInput"></input>
+
+		<button type="button" id="submitButton" class="btn btn-success btn-lg">Submit Guess!</button>
+
+		<div id="choices">
+			<button type="button" class="btn btn-default choiceButton">
+				<h5>Guess #1</h5>
+				<h3>25</h3>
+			</button>
+			<button type="button" class="btn btn-default choiceButton">
+				<h5>Guess #2</h5>
+				<h3>73</h3>
+			</button>
+			<button type="button" class="btn btn-default choiceButton">
+				<h5>Guess #3</h5>
+				<h3>42</h3>
+			</button>
+			<button type="button" class="btn btn-default choiceButton">
+				<h5>Guess #4</h5>
+				<h3>65</h3>
+			</button>
+			<button type="button" class="btn btn-default choiceButton">
+				<h5>Guess #5</h5>
+				<h3>50</h3>
+			</button>
 		</div>
 
-		<div>
-			<p>Guess Indicator</p>
-		</div>
-
-		<h1>Guess a number between 1-100!</h1>
-
-		<div>
-			<p>Box to enter number</p>
-		</div>
-
-		<button type="button" class="btn btn-success">Submit Guess!</button>
-		
-
-		<div>
-			<p>Button to Reset Game</p>
-		</div>
-
-
-
-
-
-
+		<button type="button" id="restartButton" class="btn btn-danger btn-lg">Restart Game</button>
 
 	</body>
 </html>
