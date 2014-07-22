@@ -3,8 +3,17 @@ var randomNumber = Math.round(Math.random() * 100);
 var promptUser = function(displayMessage) {
 	userGuess = prompt(displayMessage);
 	userGuess = parseInt(userGuess);
+	if(userGuess < 1 || userGuess > 100 || isNaN(userGuess)) {
+		promptUser(wrongEntry);
+	}
 	return userGuess;
 };
+var guessCount = 0;
+
+var changeGuess = function() {
+	currentGuess = "guess" + guessCount;
+	document.getElementById(currentGuess).innerHTML=document.getElementById("userInput").value;
+}
 
 //Guess Messages
 var enterGuess = "Please enter your best guess";
@@ -16,18 +25,18 @@ var warmHigher = "Warm, but guess just a bit higher";
 var warmLower = "Warm, but guess just a bit lower";
 var hotHigher = "Hot! Guess just a teensy bit higher";
 var hotLower = "Hot! Guess just a teensy bit lower";
-var veryClose = "You are within 3!"
+var veryClose = "You are within 3!";
+var wrongEntry = "That is not a number between 1 - 100.  Please guess again";
 
 
 ////////////////////////////////////////////////////////////
 console.log(randomNumber);
 
-do {
-		promptUser(enterGuess);
-	}
-	while (isNaN(userGuess));
+promptUser(enterGuess);
 
-for(var i=0; i<4; i++) {
+for(var i=0; i<5; i++) {
+
+	guessCount++;
 
 	var difference = Math.abs(randomNumber-userGuess);
 
