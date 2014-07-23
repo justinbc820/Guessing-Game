@@ -25,8 +25,9 @@ var guessMessages = {
 	aBitLow: "Please guess just a bit higher",
 	tinyBitHigh: "Please guess a tiny bit lower",
 	tinyBitLow: "Please guess a tiny bit higher",
-	almostThere: "You are so close! Guess again.",
-	rightGuess: "Congratulations! You guessed the correct number"
+	almostThere: "You are so close! Guess again",
+	rightGuess: "Congratulations! You guessed the correct number",
+	startOver: "Please click the Restart button to play again"
 };
 var guessCounter = 0;
 var currentGuess = "";
@@ -42,20 +43,58 @@ FUNCTION DECLARATIONS
 
 //This code calls all functions when the submit button is clicked
 function submitButton() {
-	verifyNumber();
-	guessCounter++;
-	postGuesses();
-	compareGuesses();
+	
+	if(verifyNumber() == false) {
+		document.getElementById("guessCoach").innerHTML = "Please enter a valid number 1-100";
+		document.getElementById("guessHelper").innerHTML = "";
+	}
+	else {
+		if(repeatedNumber() == true) {
+			document.getElementById("guessCoach").innerHTML = "You have already guessed that number";
+			document.getElementById("guessHelper").innerHTML = "";
+		}
+		else {
+			guessCounter++;
+			postGuesses();
+			compareGuesses();
+
+			if(guessCounter == 5) {
+				document.getElementById("guessCoach").innerHTML = "The correct number was " + randomNumber + ".";
+				document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
+			}
+		}
+	}
 };
 
 //This code generates the random Number
 function generateRandomNumber() {
-	randomNumber = Math.round(Math.random() *100);
+	randomNumber = Math.round(Math.random() * 100);
 	console.log("Random Number is: " + randomNumber);
 }
 
 function verifyNumber() {
-	
+	if(document.getElementById("userInput").value < 1) {
+		return false;
+	}
+	else if(document.getElementById("userInput").value > 100) {
+		return false;
+	}
+	else if(isNaN(document.getElementById("userInput").value)) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function repeatedNumber() {
+	for(var i=guessCounter; i>0; i--) {
+		console.log("Most Recent Guess: " + parseInt(document.getElementById("userInput").value));
+		console.log("A prior guess: " + guesses["guess" + i]);
+		if(parseInt(document.getElementById("userInput").value) == guesses["guess" + i]) {
+			return true;
+		} 
+	}
 }
 
 function postGuesses() {
@@ -94,8 +133,8 @@ function guessHelper() {
 
 
 	if (guesses[currentGuess] == randomNumber) {
-		document.getElementById("guessCoach").innerHTML = "";
-		document.getElementById("guessHelper").innerHTML = guessMessages.rightGuess;
+		document.getElementById("guessCoach").innerHTML = guessMessages.rightGuess;
+		document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
 	}
 	else if(currentGuessDifference >= 50) {
 		if(higherOrLower == "higher") {
