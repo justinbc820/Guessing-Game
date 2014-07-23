@@ -77,3 +77,10 @@ h3 {
 	margin-right:auto;
 	text-align:center;
 }
+
+#guessHelper {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}

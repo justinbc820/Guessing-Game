@@ -16,15 +16,25 @@ var guesses = {
 	guess4:undefined,
 	guess5:undefined
 };
+var guessMessages = {
+	wayTooHigh: "Please guess MUCH lower",
+	wayTooLow: "Please guess MUCH higher",
+	tooHigh: "Please guess lower",
+	tooLow: "Please guess higher",
+	aBitHigh: "Please guess just a bit lower",
+	aBitLow: "Please guess just a bit higher",
+	tinyBitHigh: "Please guess a tiny bit lower",
+	tinyBitLow: "Please guess a tiny bit higher",
+	almostThere: "You are so close! Guess again.",
+	rightGuess: "Congratulations! You guessed the correct number"
+};
 var guessCounter = 0;
-var currentGuessNumber = "";
-var previousGuessNumber = "";
-var warmer = "Warmer";
-var colder = "Colder";
-var correctChoice = "Congratulations! You guessed the correct number.  Please Play again!";
-var guessAgain = "Guess Again";
-var currentGuess;
+var currentGuess = "";
+var previousGuess = "";
+var currentGuessDifference;
+var previousGuessDifference;
 var randomNumber;
+var higherOrLower = "";
 
 /******************************
 FUNCTION DECLARATIONS
@@ -32,7 +42,10 @@ FUNCTION DECLARATIONS
 
 //This code calls all functions when the submit button is clicked
 function submitButton() {
-
+	verifyNumber();
+	guessCounter++;
+	postGuesses();
+	compareGuesses();
 };
 
 //This code generates the random Number
@@ -41,42 +54,82 @@ function generateRandomNumber() {
 	console.log("Random Number is: " + randomNumber);
 }
 
-//This code checks the current user guess against the random number and displays proper messages
-function compareGuess() {
-	guesses[] = parseInt(document.getElementById("userInput").value);
-	var difference = Math.abs(currentGuess - randomNumber);
+function verifyNumber() {
+	
 }
 
-// This code allows the current guess to be posted to the choices div on each successive guess
-function changeGuess() {
-	guessCounter++;
-	currentGuessNumber = "guess" + guessCounter;
-	previousGuessNumber = "guess" + (guessCounter -1);
-	document.getElementById(currentGuessNumber).innerHTML = document.getElementById("userInput").value;
-	guesses[currentGuessNumber] = document.getElementById("userInput").value;
+function postGuesses() {
+	currentGuess = "guess" + guessCounter;
+	previousGuess = "guess" + (guessCounter - 1);
+	guesses[currentGuess] = parseInt(document.getElementById("userInput").value);
+	document.getElementById(currentGuess).innerHTML = guesses[currentGuess];	
 }
 
-function storeGuesses() {
-	guesses[currentGuessNumber] = currentGuess;
-}
+function compareGuesses() {
+	currentGuessDifference = Math.abs(guesses[currentGuess] - randomNumber);
+	previousGuessDifference = Math.abs(guesses[previousGuess] - randomNumber);
 
-function warmerColder() {
 	if(guessCounter == 1) {
-		compareGuess();
+		guessHelper();	
 	}
 	else {
-		console.log(Math.abs(guesses[currentGuessNumber] - randomNumber))
-		console.log("Current guess difference: " + Math.abs(guesses[currentGuessNumber] - randomNumber));
-		console.log(Math.abs(guesses[previousGuessNumber] - randomNumber))
-		console.log("Previous guess difference: " + Math.abs(guesses[previousGuessNumber] - randomNumber));
-
-		if(Math.abs(guesses[currentGuessNumber] - randomNumber) > Math.abs(guesses[previousGuessNumber] - randomNumber)) {
+		if(currentGuessDifference > previousGuessDifference){
 			document.getElementById("guessCoach").innerHTML = "Colder";
+			guessHelper();
 		}
 		else {
 			document.getElementById("guessCoach").innerHTML = "Warmer";
-
+			guessHelper();
 		}
 	}
 }
 
+function guessHelper() {
+	if(guesses[currentGuess] > randomNumber) {
+		higherOrLower = "higher";
+	}
+	else {
+		higherOrLower = "lower";
+	};
+
+
+	if (guesses[currentGuess] == randomNumber) {
+		document.getElementById("guessCoach").innerHTML = "";
+		document.getElementById("guessHelper").innerHTML = guessMessages.rightGuess;
+	}
+	else if(currentGuessDifference >= 50) {
+		if(higherOrLower == "higher") {
+			document.getElementById("guessHelper").innerHTML = guessMessages.wayTooHigh;
+		}
+		else {
+			document.getElementById("guessHelper").innerHTML = guessMessages.wayTooLow;			
+		}
+	}
+	else if (currentGuessDifference >= 25) {
+		if(higherOrLower == "higher") {
+			document.getElementById("guessHelper").innerHTML = guessMessages.tooHigh;
+		}
+		else {
+			document.getElementById("guessHelper").innerHTML = guessMessages.tooLow;			
+		}
+	}
+	else if (currentGuessDifference >= 10) {
+		if(higherOrLower == "higher") {
+			document.getElementById("guessHelper").innerHTML = guessMessages.aBitHigh;
+		}
+		else {
+			document.getElementById("guessHelper").innerHTML = guessMessages.aBitLow;			
+		}
+	}
+	else if (currentGuessDifference >= 3) {
+		if(higherOrLower == "higher") {
+			document.getElementById("guessHelper").innerHTML = guessMessages.tinyBitHigh;
+		}
+		else {
+			document.getElementById("guessHelper").innerHTML = guessMessages.tinyBitLow;			
+		}
+	}
+	else {
+		document.getElementById("guessHelper").innerHTML = guessMessages.almostThere;			
+	}
+}
