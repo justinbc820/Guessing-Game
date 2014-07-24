@@ -17,9 +17,11 @@
 
 		<input type="text" id="userInput"></input>
 
-		<button type="button" id="submitButton" class="btn btn-success btn-lg" onclick="submitButton()">Submit Guess!</button>
+		<div id="upperButtons">
+			<button type="button" id="submitButton" class="btn btn-success btn-lg" onclick="submitButton()">Submit Guess!</button>
 
-		<button type="button" id="restartButton" class="btn btn-danger btn-lg">Restart Game</button>
+			<button type="button" id="restartButton" class="btn btn-danger btn-lg" onclick="location.reload()">Restart Game</button>
+		</div>
 
 		<div>
 			<h2 id="guessCoach"></h2>
@@ -27,26 +29,32 @@
 		</div>
 
 		<div id="choices">
-			<button type="button" class="btn btn-default choiceButton">
+			<button type="button" class="btn btn-default choiceButton" id="guess1Box">
 				<h5>Guess #1</h5>
 				<h3 id="guess1"></h3>
 			</button>
-			<button type="button" class="btn btn-default choiceButton">
+			<button type="button" class="btn btn-default choiceButton" id="guess2Box">
 				<h5>Guess #2</h5>
 				<h3 id="guess2"></h3>
 			</button>
-			<button type="button" class="btn btn-default choiceButton">
+			<button type="button" class="btn btn-default choiceButton" id="guess3Box">
 				<h5>Guess #3</h5>
 				<h3 id="guess3"></h3>
 			</button>
-			<button type="button" class="btn btn-default choiceButton">
+			<button type="button" class="btn btn-default choiceButton" id="guess4Box">
 				<h5>Guess #4</h5>
 				<h3 id="guess4"></h3>
 			</button>
-			<button type="button" class="btn btn-default choiceButton">
+			<button type="button" class="btn btn-default choiceButton" id="guess5Box">
 				<h5>Guess #5</h5>
 				<h3 id="guess5"></h3>
 			</button>
+		</div>
+
+		<div id="lowerButtons">
+			<button type="button" id="cheatButton" class="btn btn-warning btn-xs" onclick="showAnswer()">I want to cheat</button>
+
+			<button type="button" id="hintButton" class="btn btn-warning btn-xs" onclick="showHint()">Give me a hint</button>
 		</div>
 
 		<script src="Guessing-Game-Final.js"></script>

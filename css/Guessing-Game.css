@@ -5,7 +5,7 @@
 }
 
 body {
-	height:550px;
+	height:650px;
 	background-color:#C9E8F5;
 }
 
@@ -59,13 +59,24 @@ h3 {
 
 #submitButton {
 	display:inline-block;
-	margin-left:38%;
+	float:left;
 	margin-top:20px;
 }
 
 #restartButton {
 	display:inline-block;
+	float:right;
 	margin-top:20px;
+}
+
+#cheatButton {
+	display:block;
+	float:left;
+}
+
+#hintButton {
+	display:block;
+	float:right;
 }
 
 #guessCoach {
@@ -80,4 +91,21 @@ h3 {
 	margin-left:auto;
 	margin-right:auto;
 	text-align:center;
+}
+
+#lowerButtons {
+	display:block;
+	width:200px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10px;
+}
+
+#upperButtons {
+	display:block;
+	width:350px;
+	height:65px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:20px;
 }

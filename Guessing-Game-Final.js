@@ -3,9 +3,6 @@ CODE RUN WHEN PAGE LOADS
 *****************************/
 generateRandomNumber();
 
-
-
-
 /*****************************
 VARIABLE DECLARATIONS
 *****************************/
@@ -17,17 +14,19 @@ var guesses = {
 	guess5:undefined
 };
 var guessMessages = {
-	wayTooHigh: "Please guess MUCH lower",
-	wayTooLow: "Please guess MUCH higher",
-	tooHigh: "Please guess lower",
-	tooLow: "Please guess higher",
-	aBitHigh: "Please guess just a bit lower",
-	aBitLow: "Please guess just a bit higher",
-	tinyBitHigh: "Please guess a tiny bit lower",
-	tinyBitLow: "Please guess a tiny bit higher",
+	wayTooHigh: "Please guess A LOT lower",
+	wayTooLow: "Please guess A LOT higher",
+	tooHigh: "Please guess much lower",
+	tooLow: "Please guess much higher",
+	aBitHigh: "Please guess lower",
+	aBitLow: "Please guess higher",
+	tinyBitHigh: "Please guess just a bit lower",
+	tinyBitLow: "Please guess just a bit higher",
 	almostThere: "You are so close! Guess again",
 	rightGuess: "Congratulations! You guessed the correct number",
-	startOver: "Please click the Restart button to play again"
+	startOver: "Please click the Restart button to play again",
+	validNumber: "Please enter a valid number 1-100",
+	alreadyGuessed: "You have already guessed that number"
 };
 var guessCounter = 0;
 var currentGuess = "";
@@ -45,12 +44,12 @@ FUNCTION DECLARATIONS
 function submitButton() {
 	
 	if(verifyNumber() == false) {
-		document.getElementById("guessCoach").innerHTML = "Please enter a valid number 1-100";
+		document.getElementById("guessCoach").innerHTML = validNumber;
 		document.getElementById("guessHelper").innerHTML = "";
 	}
 	else {
 		if(repeatedNumber() == true) {
-			document.getElementById("guessCoach").innerHTML = "You have already guessed that number";
+			document.getElementById("guessCoach").innerHTML = alreadyGuessed;
 			document.getElementById("guessHelper").innerHTML = "";
 		}
 		else {
@@ -59,8 +58,14 @@ function submitButton() {
 			compareGuesses();
 
 			if(guessCounter == 5) {
-				document.getElementById("guessCoach").innerHTML = "The correct number was " + randomNumber + ".";
-				document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
+				if(guesses[currentGuess] == randomNumber) {
+					document.getElementById("guessCoach").innerHTML = guessMessages.rightGuess;
+					document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
+				}
+				else {
+					document.getElementById("guessCoach").innerHTML = "The correct number was " + randomNumber + ".";
+					document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
+				}
 			}
 		}
 	}
@@ -89,8 +94,6 @@ function verifyNumber() {
 
 function repeatedNumber() {
 	for(var i=guessCounter; i>0; i--) {
-		console.log("Most Recent Guess: " + parseInt(document.getElementById("userInput").value));
-		console.log("A prior guess: " + guesses["guess" + i]);
 		if(parseInt(document.getElementById("userInput").value) == guesses["guess" + i]) {
 			return true;
 		} 
@@ -133,10 +136,13 @@ function guessHelper() {
 
 
 	if (guesses[currentGuess] == randomNumber) {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#1F8503";
 		document.getElementById("guessCoach").innerHTML = guessMessages.rightGuess;
 		document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
 	}
 	else if(currentGuessDifference >= 50) {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#E0473F";
+
 		if(higherOrLower == "higher") {
 			document.getElementById("guessHelper").innerHTML = guessMessages.wayTooHigh;
 		}
@@ -145,6 +151,8 @@ function guessHelper() {
 		}
 	}
 	else if (currentGuessDifference >= 25) {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#E06D3F";
+
 		if(higherOrLower == "higher") {
 			document.getElementById("guessHelper").innerHTML = guessMessages.tooHigh;
 		}
@@ -153,6 +161,8 @@ function guessHelper() {
 		}
 	}
 	else if (currentGuessDifference >= 10) {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#E0B83F";
+
 		if(higherOrLower == "higher") {
 			document.getElementById("guessHelper").innerHTML = guessMessages.aBitHigh;
 		}
@@ -161,6 +171,8 @@ function guessHelper() {
 		}
 	}
 	else if (currentGuessDifference >= 3) {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#ADE03F";
+
 		if(higherOrLower == "higher") {
 			document.getElementById("guessHelper").innerHTML = guessMessages.tinyBitHigh;
 		}
@@ -169,6 +181,25 @@ function guessHelper() {
 		}
 	}
 	else {
+		document.getElementById("guess" + guessCounter + "Box").style.backgroundColor="#62E03F";
 		document.getElementById("guessHelper").innerHTML = guessMessages.almostThere;			
 	}
+}
+
+function showAnswer() {
+	document.getElementById("guessCoach").innerHTML = "The number is " + randomNumber;
+	document.getElementById("guessHelper").innerHTML = guessMessages.startOver;
+}
+
+function showHint() {
+	var lowRange = Math.round((randomNumber - (Math.random() * 100)));
+	var highRange = Math.round((randomNumber + (Math.random() * 100)));
+
+	if(lowRange < 0) {
+		lowRange = 0;
+	};
+	if(highRange > 100) {
+		highRange = 100;
+	};
+	document.getElementById("guessCoach").innerHTML = "The number is between " + lowRange + " and " + highRange;
 }
