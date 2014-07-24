@@ -44,7 +44,7 @@ FUNCTION DECLARATIONS
 function submitButton() {
 	
 	if(verifyNumber() == false) {
-		document.getElementById("guessCoach").innerHTML = validNumber;
+		document.getElementById("guessCoach").innerHTML = guessMessages.validNumber;
 		document.getElementById("guessHelper").innerHTML = "";
 	}
 	else {
